@@ -41,6 +41,7 @@ router.post("/login", (req, res) => {
     .findBy({ email })
     .first()
     .then(user => {
+      console.log(user);
       const userId = user.id;
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
