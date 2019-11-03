@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 exports.seed = function(knex) {
-  return knex("users").insert([
+  return knex("user").insert([
     {
       name: "John Doe",
       email: "user1@gmail.com",

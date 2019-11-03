@@ -1,3 +1,9 @@
+let today = new Date();
+let mm = String(today.getMonth() + 1).padStart(2, "0");
+let dd = String(today.getDate()).padStart(2, "0");
+let yyyy = today.getFullYear();
+let date = `${mm}-${dd}-${yyyy}`;
+
 exports.up = function(knex) {
   return knex.schema
     .createTable("user", user => {
@@ -7,13 +13,14 @@ exports.up = function(knex) {
         .string("email", 320)
         .notNullable()
         .unique();
-      user.password("string", 100).notNullable;
+      user.string("password", 100).notNullable;
     })
 
-    .createTable("person", person => {
-      person.increments();
-      person.string("name", 50);
-      person
+    .createTable("trip", trip => {
+      trip.increments();
+      trip.string("title", 100).notNullable();
+      trip.string("date").default(date);
+      trip
         .integer("user_id")
         .notNullable()
         .references("id")
@@ -22,10 +29,29 @@ exports.up = function(knex) {
         .onUpdate("CASCADE");
     })
 
+    .createTable("person", person => {
+      person.increments();
+      person.string("name", 50);
+      person
+        .integer("trip_id")
+        .notNullable()
+        .references("id")
+        .inTable("trip")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
+
     .createTable("expense", expense => {
       expense.increments();
       expense.string("title", 50).notNullable();
       expense.integer("amount", 20).notNullable();
+      expense
+        .integer("trip_id")
+        .notNullable()
+        .references("id")
+        .inTable("trip")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     })
 
     .createTable("expense_by_person", ebp => {
@@ -48,4 +74,11 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {};
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists("expense_by_person")
+    .dropTableIfExists("expense")
+    .dropTableIfExists("person")
+    .dropTableIfExists("trip")
+    .dropTableIfExists("user");
+};

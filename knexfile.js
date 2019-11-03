@@ -1,6 +1,7 @@
 module.exports = {
   development: {
     client: "sqlite3",
+    useNullAsDefault: true,
     connection: {
       filename: "./database/ts.db3"
     },
@@ -10,7 +11,6 @@ module.exports = {
         conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
       }
     },
-    useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations",
       tableName: "knex_migrations"
@@ -20,35 +20,24 @@ module.exports = {
     }
   },
 
-  staging: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations"
-    }
-  },
-
   production: {
-    client: "postgresql",
+    client: "sqlite3",
+    useNullAsDefault: true,
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      filename: "./database/ts.db3"
     },
     pool: {
-      min: 2,
-      max: 10
+      afterCreate: (conn, done) => {
+        // runs after a connection is made to the sqlite engine
+        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
+      }
     },
     migrations: {
+      directory: "./database/migrations",
       tableName: "knex_migrations"
+    },
+    seeds: {
+      directory: "./database/seeds"
     }
   }
 };
