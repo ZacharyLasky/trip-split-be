@@ -21,17 +21,14 @@ module.exports = {
   },
 
   production: {
-    client: "sqlite3",
+    client: "postgresql",
     useNullAsDefault: true,
-    connection: {
-      filename: "./database/ts.db3"
+    connection: process.env.DATABASE_URL || {
+      database: process.env.DB,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        // runs after a connection is made to the sqlite engine
-        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
-      }
-    },
+
     migrations: {
       directory: "./database/migrations",
       tableName: "knex_migrations"
