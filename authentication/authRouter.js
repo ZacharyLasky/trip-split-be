@@ -26,7 +26,12 @@ router.post("/register", (req, res) => {
   authModel
     .add(user)
     .then(userData => {
-      res.status(201).json(userData);
+      const regToken = generateToken(userData);
+      console.log("userData:", userData);
+      res.status(201).json({
+        user: userData[0],
+        token: regToken
+      });
     })
     .catch(error => {
       res.status(500).json(error);

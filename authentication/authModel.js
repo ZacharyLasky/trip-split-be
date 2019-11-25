@@ -7,7 +7,9 @@ module.exports = {
 };
 
 function add(userData) {
-  return db("user").insert(userData);
+  return db("user")
+    .insert(userData)
+    .returning("*");
 }
 
 function findBy(filter) {
