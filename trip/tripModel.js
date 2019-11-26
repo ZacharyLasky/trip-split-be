@@ -2,8 +2,8 @@ const db = require("../database/dbConfig");
 
 module.exports = { add };
 
-function add() {
+function add(tripData) {
   return db("trip")
-    .insert()
+    .insert(tripData)
     .returning("*");
 }

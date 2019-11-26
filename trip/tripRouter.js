@@ -3,15 +3,17 @@ const express = require("express");
 const router = express.Router();
 
 // MODEL IMPORTS
-const authModel = require("./tripModel.js");
+const tripModel = require("./tripModel.js");
 
 // ROUTES
 
 // POST TRIP
 router.post("/", (req, res) => {
-  authModel
-    .add()
+  const data = req.body;
+  tripModel
+    .add(data)
     .then(trip => {
+      console.log(trip);
       res.status(201).json(trip);
     })
     .catch(error => {
