@@ -3,18 +3,18 @@ const express = require("express");
 const router = express.Router();
 
 // MODEL IMPORTS
-const tripModel = require("./tripModel.js");
+const personModel = require("./personModel.js");
 
 // ROUTES
 
-// POST TRIP
+// POST PERSON
 router.post("/", (req, res) => {
   const data = req.body;
-  tripModel
+  personModel
     .add(data)
-    .then(trip => {
-      console.log(trip);
-      res.status(201).json(trip[0]);
+    .then(person => {
+      console.log(person);
+      res.status(201).json(person[0]);
     })
     .catch(error => {
       res.status(500).json(error);
