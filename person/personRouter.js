@@ -21,4 +21,17 @@ router.post("/", (req, res) => {
     });
 });
 
+// GET ALL PERSONS
+router.get("/"),
+  (req, res) => {
+    personModel
+      .find()
+      .then(persons => {
+        res.status(200).json(persons);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
+  };
+
 module.exports = router;
