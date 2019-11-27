@@ -22,16 +22,30 @@ router.post("/", (req, res) => {
 });
 
 // GET ALL PERSONS
-router.get("/"),
-  (req, res) => {
-    personModel
-      .find()
-      .then(persons => {
-        res.status(200).json(persons);
-      })
-      .catch(error => {
-        res.status(500).json(error);
-      });
-  };
+router.get("/", (req, res) => {
+  personModel
+    .find()
+    .then(persons => {
+      res.status(200).json(persons);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+// GET ALL PERSONS THAT BELONG TO A TRIP
+router.get("/trip/:id", (req, res) => {
+  const { id } = req.params;
+  // console.log(id);
+
+  personModel
+    .findByTripId(id)
+    .then(persons => {
+      res.status(200).json(persons);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
 
 module.exports = router;

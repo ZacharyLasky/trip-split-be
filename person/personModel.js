@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-module.exports = { add, find };
+module.exports = { add, find, findByTripId };
 
 function add(personData) {
   return db("person")
@@ -10,4 +10,10 @@ function add(personData) {
 
 function find() {
   return db("person").select("*");
+}
+
+function findByTripId(tripId) {
+  return db("person")
+    .select("*")
+    .where({ "person.trip_id": tripId });
 }

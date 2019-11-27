@@ -31,7 +31,7 @@ exports.up = function(knex) {
 
     .createTable("person", person => {
       person.increments();
-      person.string("name", 50).unique();
+      person.string("name", 50);
       person
         .integer("trip_id")
         .notNullable()
