@@ -15,7 +15,7 @@ function find() {
 function findLast(userId) {
   return db("trip")
     .select("*")
-    .orderBy("title", "desc")
+    .orderBy("id", "desc")
     .limit(1)
     .where({ "trip.user_id": userId });
 }
