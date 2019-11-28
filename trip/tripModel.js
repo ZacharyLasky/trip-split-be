@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-module.exports = { add, find, findLast };
+module.exports = { add, find, findByUserId, findLast };
 
 function add(tripData) {
   return db("trip")
@@ -17,4 +17,10 @@ function findLast() {
     .select("*")
     .orderBy("title", "desc")
     .limit(1);
+}
+
+function findByUserId(userId) {
+  return db("trip")
+    .select("*")
+    .where({ "trip.user_id": userId });
 }

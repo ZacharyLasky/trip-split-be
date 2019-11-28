@@ -33,16 +33,30 @@ router.get("/", (req, res) => {
     });
 });
 
-// GET LAST TRIP IN DATABASE
-router.get("/last", (req, res) => {
+// GET ALL TRIPS THAT BELONG TO A USER
+router.get("/user/:id", (req, res) => {
+  const { id } = req.params;
+
   tripModel
-    .findLast()
-    .then(trips => {
-      res.status(200).json(trips);
+    .findByUserId(id)
+    .then(persons => {
+      res.status(200).json(persons);
     })
     .catch(error => {
       res.status(500).json(error);
     });
 });
+
+// GET LAST TRIP IN DATABASE
+// router.get("/last", (req, res) => {
+//   tripModel
+//     .findLast()
+//     .then(trips => {
+//       res.status(200).json(trips);
+//     })
+//     .catch(error => {
+//       res.status(500).json(error);
+//     });
+// });
 
 module.exports = router;
