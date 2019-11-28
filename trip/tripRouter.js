@@ -21,4 +21,28 @@ router.post("/", (req, res) => {
     });
 });
 
+// GET ALL TRIPS
+router.get("/", (req, res) => {
+  tripModel
+    .find()
+    .then(trips => {
+      res.status(200).json(trips);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+// GET LAST TRIP IN DATABASE
+router.get("/last", (req, res) => {
+  tripModel
+    .findLast()
+    .then(trips => {
+      res.status(200).json(trips);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
 module.exports = router;
