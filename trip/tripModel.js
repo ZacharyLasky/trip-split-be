@@ -12,11 +12,12 @@ function find() {
   return db("trip").select("*");
 }
 
-function findLast() {
+function findLast(userId) {
   return db("trip")
     .select("*")
     .orderBy("title", "desc")
-    .limit(1);
+    .limit(1)
+    .where({ "trip.user_id": userId });
 }
 
 function findByUserId(userId) {

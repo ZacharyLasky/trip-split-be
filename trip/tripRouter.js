@@ -47,6 +47,20 @@ router.get("/user/:id", (req, res) => {
     });
 });
 
+// GET LAST (MOST RECENT) TRIP THAT BELONGS TO A USER
+router.get("/last/user/:id", (req, res) => {
+  const { id } = req.params;
+
+  tripModel
+    .findLast(id)
+    .then(persons => {
+      res.status(200).json(persons);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
 // GET LAST TRIP IN DATABASE
 // router.get("/last", (req, res) => {
 //   tripModel
