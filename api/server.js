@@ -10,6 +10,7 @@ const cors = require("cors");
 const authRouter = require("../authentication/authRouter.js");
 const tripRouter = require("../trip/tripRouter.js");
 const personRouter = require("../person/personRouter.js");
+const expenseRouter = require("../expense/expenseRouter.js");
 
 // SERVER USAGE
 server.use(helmet());
@@ -20,6 +21,7 @@ server.use(express.json()); // POST & Update will use JSON
 server.use("/api/auth", authRouter);
 server.use("/api/trip", tripRouter);
 server.use("/api/person", personRouter);
+server.use("/api/expense", expenseRouter);
 
 // GET TEST FOR '/'
 server.get("/", (req, res) => {
