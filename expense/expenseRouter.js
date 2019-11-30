@@ -36,7 +36,6 @@ router.get("/", (req, res) => {
 // GET ALL EXPENSES THAT BELONG TO A TRIP
 router.get("/trip/:id", (req, res) => {
   const { id } = req.params;
-  // console.log(id);
 
   expenseModel
     .findByTripId(id)
