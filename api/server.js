@@ -11,6 +11,7 @@ const authRouter = require("../authentication/authRouter.js");
 const tripRouter = require("../trip/tripRouter.js");
 const personRouter = require("../person/personRouter.js");
 const expenseRouter = require("../expense/expenseRouter.js");
+const ebpRouter = require("../expense_by_person/ebpRouter.js");
 
 // SERVER USAGE
 server.use(helmet());
@@ -22,6 +23,7 @@ server.use("/api/auth", authRouter);
 server.use("/api/trip", tripRouter);
 server.use("/api/person", personRouter);
 server.use("/api/expense", expenseRouter);
+server.use("/api/ebp", ebpRouter);
 
 // GET TEST FOR '/'
 server.get("/", (req, res) => {
