@@ -7,7 +7,7 @@ const ebpModel = require("./ebpModel.js");
 
 // ROUTES
 
-// POST EXPENSE
+// POST EXPENSE BY PERSON
 router.post("/", (req, res) => {
   const data = req.body;
   ebpModel
@@ -25,6 +25,34 @@ router.post("/", (req, res) => {
 router.get("/", (req, res) => {
   ebpModel
     .find()
+    .then(ebp => {
+      res.status(200).json(ebp);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+// GET ALL EXPENSES BY PERSON BELONGING TO PERSON
+router.get("/person/:id", (req, res) => {
+  const { id } = req.params;
+
+  ebpModel
+    .findByPersonId(id)
+    .then(ebp => {
+      res.status(200).json(ebp);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+// GET ALL EXPENSES BY PERSON BELONGING TO EXPENSE
+router.get("/expense/:id", (req, res) => {
+  const { id } = req.params;
+
+  ebpModel
+    .findByExpenseId(id)
     .then(ebp => {
       res.status(200).json(ebp);
     })
